@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import type { DayKey, Exercise } from '../types/workout'
 import { toSectionId } from '../utils/today'
-import ExerciseCard from './ExerciseCard'
+import ExerciseExplorer from './ExerciseExplorer'
 import RestDay from './RestDay'
 
 interface WorkoutDayProps {
@@ -46,20 +46,8 @@ export default function WorkoutDay({
       {day.isRestDay ? (
         <RestDay tips={recoveryTips} />
       ) : (
-        <motion.div layout className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {exercises.map((exercise) => (
-            <ExerciseCard
-              key={exercise.id}
-              exercise={exercise}
-              completed={Boolean(completionMap[exercise.id])}
-              onToggle={onToggle}
-            />
-          ))}
-          {exercises.length === 0 && (
-            <div className="glass-card p-6 text-slate-200 md:col-span-2 xl:col-span-3">
-              No exercises match your search for this day.
-            </div>
-          )}
+        <motion.div layout>
+          <ExerciseExplorer exercises={exercises} completionMap={completionMap} onToggle={onToggle} />
         </motion.div>
       )}
     </section>
